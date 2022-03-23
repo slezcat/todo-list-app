@@ -1,14 +1,13 @@
-import React, { FC } from "react";
+import { FC } from "react";
 import Login from "./pages/Login";
-import Task from "./pages/Todo";
 
+import Task from "./pages/Todo";
 
 const App: FC = () => {
   return (
     <>
       <Login/>
-      <Task/>
-      {/* <TTodo/> */}
+      <Task />
     </>
   );
 };

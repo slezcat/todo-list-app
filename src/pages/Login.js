@@ -6,20 +6,7 @@ import {
   signOut,
 } from "firebase/auth";
 
-import {
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  DocumentData,
-  getDocs,
-  query,
-  setDoc,
-  where,
-} from "firebase/firestore";
-
-import { auth, db } from "../firebase-config";
-import { FirebaseError } from "firebase/app";
+import { auth } from "../firebase-config";
 
 function Login() {
   const [registerEmail, setRegisterEmail] = useState("");
@@ -31,9 +18,8 @@ function Login() {
 
   onAuthStateChanged(auth, (currentUser) => {
     setUser(currentUser);
-    // console.log(currentUser)
   });
- 
+
   const register = async () => {
     try {
       const user = await createUserWithEmailAndPassword(
@@ -41,19 +27,7 @@ function Login() {
         registerEmail,
         registerPassword
       );
-      console.log(user);
-      
-      // await setDoc(doc(db,`users/${registerEmail}`,"todos"),{
-      //   password: registerPassword
-      // })
-      // const newTodoRef = doc(collection(db, "users",
-      // `${registerEmail}`,
-      // "todos"));
-      // await setDoc(newTodoRef,{
-      // })
-      // await setDoc(doc(db,`users/${registerEmail}`,"todos"),{
-       
-      // })
+
     } catch (error) {
       console.log(error.message);
     }
@@ -66,10 +40,8 @@ function Login() {
         loginEmail,
         loginPassword
       );
-        
 
-      
-      console.log(user);
+
     } catch (error) {
       console.log(error.message);
     }
@@ -77,7 +49,8 @@ function Login() {
 
   const logout = async () => {
     await signOut(auth);
-  };
+    window.location.reload()
+  }; 
 
   return (
     <div className="App">

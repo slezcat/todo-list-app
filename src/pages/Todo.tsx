@@ -1,22 +1,19 @@
-import React, { ChangeEvent, FC, useState, useEffect } from "react";
+import { ChangeEvent, FC, useState, useEffect } from "react";
 import Note from "../components/Note";
 
 import { auth, db } from "../firebase-config";
 import {
-  addDoc,
   collection,
   deleteDoc,
   doc,
   DocumentData,
   getDocs,
   query,
-  where,
   onSnapshot,
   setDoc,
+  where,
 } from "firebase/firestore";
 import { onAuthStateChanged } from "firebase/auth";
-import { idText } from "typescript";
-const { v4: uuidv4 } = require("uuid");
 
 const Task: FC = () => {
   const [title, setTitle] = useState<string>("");
@@ -26,20 +23,12 @@ const Task: FC = () => {
 
   const [user, setUser] = useState<any>("unknown");
 
-  console.log(task);
-  console.log(user);
-
-  // const data = await getDocs(q);
-  // setTask(
-  //   data.docs.map((doc: DocumentData) => ({ ...doc.data(), id: doc.id }))
-  // );
-
   useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
       if (currentUser?.uid == null) {
         setUser("Unknown");
       } else {
-        setUser(currentUser.uid)
+        setUser(currentUser.uid);
         const tasksCollectionRef = collection(
           db,
           "users",
@@ -54,32 +43,22 @@ const Task: FC = () => {
           });
           setTask(tasks);
         });
-        // const getTask = async () => {
-
-        // })
-        // }
-        //   getTask()
       }
     });
   }, []);
-  const getData = async () => {
-    const q = query(collection(db,
-      "users",
-      `${user}`,
-      "todos"));
-    const querySnapshot = await getDocs(q);
-    return querySnapshot.docs.map((detail) => ({
-      ...detail.data(),
-      id: detail.id,
-      email: detail,
-    }));
-  };
+  // const getData = async () => {
+  //   const q = query(collection(db, "users", `${user}`, "todos"));
+  //   const querySnapshot = await getDocs(q);
+  //   return querySnapshot.docs.map((detail) => ({
+  //     ...detail.data(),
+  //     id: detail.id,
+  //   }));
+  // };
   const remainingTask = task.length;
 
   const handleChange = (
     event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
   ) => {
-    // forgot to put as a string
     if (event.target.name === "title") {
       setTitle(event.target.value);
     } else if (event.target.name === "desc") {
@@ -100,66 +79,21 @@ const Task: FC = () => {
       alert("Please add a task");
       return;
     }
-    // didnt put empty string
-    // setTask([...task, newTask]);
-    //Reset form on submit
 
-    //   setTask(queryData);
-    //   queryData.map(async (v) => {
-    //     await setDoc(doc(db, `users/${v.id}/more-details`, task.title), {
-    //         name: task.title,
-
-    //     });
-    // };
-    // await addDoc(tasksCollectionRef, newTask);
-    console.log(user)
-    const queryData = doc(collection(db, "users",
-    `${user}`,
-    "todos"));
-    await setDoc(doc(db,`users/${user}`),{
+    const queryData = doc(collection(db, "users", `${user}`, "todos"));
+    await setDoc(doc(db, `users/${user}`), {
       userId: user,
-    })
-    await setDoc(queryData,{...newTask})
-  
-    // await setDoc(doc(db,`users/${user.uid}todos`),{
-    //   ...newTask
-    //   })
-    // console.log(queryData);
-
-    
-
-    //     Property 'map' does not exist on type 'Promise<{ id: string; }[]>'.ts(2339)
-    // Todo.tsx(118, 15): Did you forget to use 'await'?
-    // (await queryData).map(async (v) => {
-    //   await setDoc(doc(db, `users/${v.id}/todos`, newTask.title), {
-        // name: newtask.title,
-        // age: newtask.age,
-        // currentLocation: newtask.currLoc,
-    //     ...newTask,
-    //   });
-    // });
+    });
+    await setDoc(queryData, { ...newTask });
     setDeadline("");
     setTitle("");
     setDesc("");
-    console.log(task);
   };
 
   const deleteTask = async (id: any) => {
-    // setTask(
-    //   task.filter((task) => {
-    //     return task.id !== taskToDelete;
-    //   })
-    // );
-    // const taskDoc = doc(db, `users/${v.id}/todos`, id);
-    // await deleteDoc(taskDoc);
-    // console.log(doc(db , "/Task" , id))
-    const queryData = getData();
-    console.log(queryData);
-    //     Property 'map' does not exist on type 'Promise<{ id: string; }[]>'.ts(2339)
-    // Todo.tsx(118, 15): Did you forget to use 'await'?
-    (await queryData).map(async (document) => {
-      await deleteDoc(doc(db, `users/${document.id}/todos`, id));
-  })};
+    await deleteDoc(doc(db, `users/${user}/todos`, id));
+    console.log(id);
+  };
 
   return (
     <>
@@ -209,11 +143,6 @@ const Task: FC = () => {
             </label>
           </form>
 
-          {/* didnt specify the return */}
-          {/* List Of Tasks */}
-          {/* {task.map((task: ITask, key: number)=>{
-            <Note task={task} key={key}/>
-        })} */}
           <h1 className="mb-2 text-center text-xl font-semibold">
             {remainingTask} Tasks Remaining
           </h1>
