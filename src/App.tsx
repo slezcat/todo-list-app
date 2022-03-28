@@ -80,7 +80,9 @@ const App: FC = () => {
 
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
-      .then((result) => {})
+      .then((result) => {
+        navigate("/");
+      })
       .catch((error) => {
         console.log(error);
       });
