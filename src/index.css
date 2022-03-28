@@ -5,8 +5,6 @@
 
 @layer components {
   .text-form {
-    @apply rounded-md  bg-slate-700 my-2 p-2 caret-white outline-none text-white;
+    @apply my-2  rounded-md bg-slate-700 p-2 text-white caret-white outline-none;
   }
 }
-
-
