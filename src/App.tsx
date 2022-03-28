@@ -51,7 +51,7 @@ const App: FC = () => {
     });
   }, []);
 
-  //Add Task
+
   const addTask = async (task: {
     title: string;
     desc: string;
@@ -70,17 +70,18 @@ const App: FC = () => {
     await setDoc(queryData, { ...newTask });
   };
 
-  //Delete Task
+
   const deleteTask = async (id: any) => {
     await deleteDoc(doc(db, `users/${user!.uid}/todos`, id));
   };
 
-  //Log out
-  const logout = async () => {
+ 
+  const Logout = async () => {
     await signOut(auth);
     setTasks([]);
   };
 
+  
   const signInWithGoogle = () => {
     signInWithPopup(auth, provider)
       .then((result) => {})
@@ -89,6 +90,7 @@ const App: FC = () => {
       });
   };
 
+  //Register
   const Register = async (userData: any) => {
     try {
       const CreateUser = await createUserWithEmailAndPassword(
@@ -99,6 +101,7 @@ const App: FC = () => {
       navigate("/");
     } catch (error) {}
   };
+
 
   const Login = async (userData: any) => {
     try {
@@ -131,7 +134,7 @@ const App: FC = () => {
               user={user}
               addTask={addTask}
               deleteTask={deleteTask}
-              logout={logout}
+              Logout={Logout}
             />
           }
         />

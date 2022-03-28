@@ -6,7 +6,7 @@ import { DocumentData } from "firebase/firestore";
 import { Button } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 
-const Task = ({ tasks, user, addTask, deleteTask, logout }: any) => {
+const Task = ({ tasks, user, addTask, deleteTask, Logout }: any) => {
   let navigate = useNavigate();
 
   const [title, setTitle] = useState<string>("");
@@ -53,7 +53,7 @@ const Task = ({ tasks, user, addTask, deleteTask, logout }: any) => {
                   <h4> {user?.email}</h4>
                   <div>
                     <Button
-                      onClick={logout}
+                      onClick={Logout}
                       variant="contained"
                       color="secondary"
                       className="ml-2"
