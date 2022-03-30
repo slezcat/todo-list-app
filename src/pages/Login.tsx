@@ -26,9 +26,10 @@ const AuthPage = ({ Login, Register, signInWithGoogle }: any) => {
 
   return (
     <div className="flex min-h-screen items-center  justify-center bg-[#001e3c]">
-      <Card>
+      
+      <Card sx={{justifyContent:"center",width:"100%", maxWidth:"500px"}}>
         <CardContent>
-          <div className="flex w-96 flex-col text-center">
+          <div className="flex  flex-col text-center">
             <Typography variant="h3" sx={{ marginBottom: "20px" }}>
               {isSignIn ? "Log in" : "Sign in"}
             </Typography>
@@ -92,6 +93,7 @@ const AuthPage = ({ Login, Register, signInWithGoogle }: any) => {
           </Typography>
         </CardContent>
       </Card>
+      
     </div>
   );
 };
